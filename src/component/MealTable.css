@@ -1,0 +1,38 @@
+.display-center {
+  position: absolute;
+  width: 100%;
+
+  display: flex;
+justify-content: center;}
+
+.display-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 600px;
+}
+
+.display-right .button {
+  padding: 7px 20px;
+  margin: 50px 0 10px 0;
+}
+
+#meal-table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+  width: 600px;
+}
+
+#meal-table thead {
+  background-color: #bbb;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+tr {
+  border: 1px solid #000;
+  text-align: center;
+  line-height: 30px;
+}
