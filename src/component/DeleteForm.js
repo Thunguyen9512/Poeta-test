@@ -1,14 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-Delete.propTypes = {
+import "./popupForm.css";
+
+DeleteForm.propTypes = {
   deleteVisible: PropTypes.bool,
   onDeleteCloseButtonClick: PropTypes.func,
   mealToDelete: PropTypes.object,
   onDeleteMealButtonClick: PropTypes.func,
 };
 
-function Delete(props) {
+function DeleteForm(props) {
   const {
     deleteVisible,
     onDeleteCloseButtonClick,
@@ -16,7 +18,8 @@ function Delete(props) {
     onDeleteMealButtonClick,
   } = props;
 
-  const onSubmit = () => {
+  const submitForm = (e) => {
+    e.preventDefault(); //prevent browser reload
     onDeleteMealButtonClick(mealToDelete);
   };
 
@@ -40,7 +43,7 @@ function Delete(props) {
               </p>
             </div>
             <div className="popup-button">
-              <button className="button" onClick={onSubmit}>
+              <button className="button" onClick={submitForm}>
                 Delete
               </button>
             </div>
@@ -53,4 +56,4 @@ function Delete(props) {
   }
 }
 
-export default Delete;
+export default DeleteForm;

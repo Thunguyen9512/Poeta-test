@@ -1,50 +1,47 @@
 import axios from "axios";
 import { useState } from "react";
 import "./App.css";
-import AddNew from "./component/AddNew";
-import Delete from "./component/Delete";
-import Edit from "./component/Edit";
+import AddForm from "./component/AddForm";
+import DeleteForm from "./component/DeleteForm";
+import EditForm from "./component/EditForm";
 import MealTable from "./component/MealTable";
 
 const App = () => {
-  const [addNewVisible, setAddNewVisible] = useState(false);
-  const [deleteVisible, setDeleteVisible] = useState(false);
-  const [editVisible, setEditVisible] = useState(false);
+  const [addNewVisible, setAddNewVisible] = useState(false); //  add-form visible
+  const [deleteVisible, setDeleteVisible] = useState(false); //  delete-form visible
+  const [editVisible, setEditVisible] = useState(false); // edit-form visible
 
-  const [mealToDelete, setMealToDelete] = useState(null);
-  const [indexToDelete, setIndexToDelete] = useState(null);
-  const [mealToEdit, setMealToEdit] = useState(null);
-  const [indexToEdit, setIndexToEdit] = useState(null);
+  const [mealToDelete, setMealToDelete] = useState(null); // meal to delete
+  const [indexToDelete, setIndexToDelete] = useState(null); // index meal to delete
+  const [mealToEdit, setMealToEdit] = useState(null); //meal to edit
+  const [indexToEdit, setIndexToEdit] = useState(null); //index meal to edit
 
-  
-  const initialList = JSON.parse(localStorage.getItem("meal-list")) || []
+  const initialList = JSON.parse(localStorage.getItem("meal-list")) || []; //get data from local strorage
   const [mealList, setMealList] = useState(initialList);
 
-  /* ---------------button click to open popup window----------------- */
-  /* Add button handle */
+  /* -----handle button click to open popup form---------- */
+  /* Add button */
   const onAddButtonClick = () => {
     setAddNewVisible(true);
   };
 
-  /* Edit button handle */
+  /* Edit button */
   const onEditButtonClick = (index) => {
-    console.log("on edit button click", index);
     setIndexToEdit(index);
     setMealToEdit(mealList[index]);
     setEditVisible(true);
   };
 
-  /* Delete button handle */
+  /* Delete button */
   const onDeleteButtonClick = (index) => {
     setIndexToDelete(index);
     setMealToDelete(mealList[index]);
     setDeleteVisible(true);
   };
-  /* ------------------------------------------------------------------ */
 
-  /* ----------AddForm: handle add button-------------- */
+  /* ------------------handle form submit------------------------------ */
+  /* AddForm: handle add form submit */
   const onAddMealButtonClick = (mealName) => {
-    console.log("on add meal button click:", mealName);
     const fetchData = async (mealName) => {
       axios
         .get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
@@ -69,8 +66,7 @@ const App = () => {
     fetchData(mealName);
   };
 
-  /* ---------DeleteForm: handle delete button------- */
-
+  /* DeleteForm: handle delete form submit */
   const onDeleteMealButtonClick = () => {
     if (indexToDelete !== null) {
       const newMealList = [...mealList];
@@ -85,7 +81,7 @@ const App = () => {
     } else return;
   };
 
-  /* ---------EditForm: handle edit button------- */
+  /* EditForm: handle edit form submit */
   const onEditMealButtonClick = () => {
     const mealName = mealList[indexToEdit].name;
     const fetchData = async (mealName) => {
@@ -105,57 +101,57 @@ const App = () => {
           console.log("error", error);
           alert("error, try again");
         })
-        .then(()=>{
-          setEditVisible(false)
-        })
+        .then(() => {
+          setEditVisible(false);
+        });
     };
     fetchData(mealName);
   };
 
-  /* ------------------------------------------------------------------ */
-
+  /* ------------Close form---------------- */
+  /* close add form */
   const onAddCloseButtonClick = () => {
     setAddNewVisible(false);
   };
 
+  /* close delete form */
   const onDeleteCloseButtonClick = () => {
     setDeleteVisible(false);
   };
 
+  /* close edit form */
   const onEditCloseButtonClick = () => {
     setEditVisible(false);
   };
-  
 
-
+  /* store data to local strorage */
   localStorage.setItem("meal-list", JSON.stringify(mealList));
 
-
   return (
-    <div className = "app">
+    <div className="app">
       <MealTable
         mealList={mealList}
         onAddButtonClick={onAddButtonClick}
         onEditButtonClick={onEditButtonClick}
         onDeleteButtonClick={onDeleteButtonClick}
       ></MealTable>
-      <AddNew
+      <AddForm
         addNewVisible={addNewVisible}
         onAddCloseButtonClick={onAddCloseButtonClick}
         onAddMealButtonClick={onAddMealButtonClick}
-      ></AddNew>
-      <Delete
+      ></AddForm>
+      <DeleteForm
         deleteVisible={deleteVisible}
         onDeleteCloseButtonClick={onDeleteCloseButtonClick}
         mealToDelete={mealToDelete}
         onDeleteMealButtonClick={onDeleteMealButtonClick}
-      ></Delete>
-      <Edit
+      ></DeleteForm>
+      <EditForm
         editVisible={editVisible}
         onEditCloseButtonClick={onEditCloseButtonClick}
         mealToEdit={mealToEdit}
         onEditMealButtonClick={onEditMealButtonClick}
-      ></Edit>
+      ></EditForm>
     </div>
   );
 };

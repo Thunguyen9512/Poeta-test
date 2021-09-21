@@ -7,13 +7,12 @@ MealTable.propTypes = {
   mealList: PropTypes.array.isRequired,
   onAddButtonClick: PropTypes.func,
   onEditButtonClick: PropTypes.func,
-  onDeleteButtonClick: PropTypes.func
+  onDeleteButtonClick: PropTypes.func,
 };
 
 function MealTable(props) {
   const { mealList, onAddButtonClick, onEditButtonClick, onDeleteButtonClick } =
     props;
-
 
   return (
     <div className="display-center">
@@ -30,7 +29,7 @@ function MealTable(props) {
                 <th>No</th>
                 <th>Meal</th>
                 <th>Count</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -41,13 +40,13 @@ function MealTable(props) {
                   <td>{item.quantity}</td>
                   <td>
                     <div>
-                      <a href="#" onClick={() => onEditButtonClick(index)}>
+                      <button onClick={() => onEditButtonClick(index)}>
                         Edit
-                      </a>
+                      </button>
                       <span> | </span>
-                      <a href="#" onClick={() => onDeleteButtonClick(index)}>
+                      <button onClick={() => onDeleteButtonClick(index)}>
                         Delete
-                      </a>
+                      </button>
                     </div>
                   </td>
                 </tr>

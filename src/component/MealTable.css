@@ -27,6 +27,14 @@ justify-content: center;}
   background-color: #bbb;
 }
 
+#meal-table button {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  
+  cursor: pointer
+}
+
 tr:nth-child(even) {
   background-color: #eee;
 }

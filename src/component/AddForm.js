@@ -1,21 +1,24 @@
 import PropTypes from "prop-types";
 
-import "./popupWindow.css";
+import "./popupForm.css";
 
-AddNew.propTypes = {
+AddForm.propTypes = {
   addNewVisible: PropTypes.bool,
   onAddCloseButtonClick: PropTypes.func,
   onAddMealButtonClick: PropTypes.func,
 };
 
-function AddNew(props) {
+function AddForm(props) {
   const { addNewVisible, onAddCloseButtonClick, onAddMealButtonClick } = props;
   let inputValue = "";
+
+  /* get input value */
   const onChange = (e) => {
     inputValue = e.target.value;
   };
 
-  const onSubmit = (e) => {
+  const submitForm = (e) => {
+    e.preventDefault(); //prevent browser reload
     if (inputValue !== "") {
       onAddMealButtonClick(inputValue);
     }
@@ -43,7 +46,11 @@ function AddNew(props) {
               ></input>
             </div>
             <div className="popup-button">
-              <button type="submit" className="button" onClick={onSubmit}>
+              <button
+                type="submit"
+                className="button"
+                onClick={submitForm}
+              >
                 Add
               </button>
             </div>
@@ -56,4 +63,4 @@ function AddNew(props) {
   }
 }
 
-export default AddNew;
+export default AddForm;
